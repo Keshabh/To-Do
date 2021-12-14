@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+
+   <div class="head">
+    <h1 style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;"><a style="color:#FFFDFA;text-decoration:None;" href="/">📝Todo List</a></h1>
+
+
+     <nav class="top_nav">
+       <label for="" class="button" tabindex="1">
+       <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
+       </label>
+       <ul class="menu">
+         <li> <a href="/">Task</a></li>
+         <li> <a href="{%url 'recurring' %}">Recurring Task</a></li>
+         <li> <a href="#">Login</a> </li>
+         <li> <a href="#">Register</a> </li>
+         <li> <a href="#">Graph</a> </li>
+       </ul>
+     </nav>
+
+   </div>
+<hr class="top_line">
+<div class="box">
+<div class="box_head">
+<table>
+<tr>
+<td>
+  <p>Tasks</p>
+</td>
+<td style="text-align:center;">
+  <p>{{time}}</p>
+</td>
+<td>
+  <nav>
+    <label for="" class="ellipsis" tabindex="1">
+    <span style="color:black;" class="fas fa-ellipsis-v fa-1x"></span>
+    </label>
+    <ul class="menu">
+      <li><a href="{%url 'R_delete_all' %}">Clear all tasks</a></li>
+      <li> <a href="{%url 'R_clear_finished' %}">Clear Finished Task</a> </li>
+    </ul>
+  </nav>
+</td>
+</tr>
+</table>
+</div>
+<hr class="box_line">
+<!-- if add task is hit-->
+<ul class="list">
+{% if H is 1%}
+<form action="" method="POST">
+{% csrf_token %}
+<!--{{form.as_p}}-->
+<li class="hak" style="padding-left:20px;padding-right:20px;width:455px;padding-top:15px;">
+<input autocomplete="off" autofocus id="myText" placeholder="Go on, add something... " type="text" name="tasks" style="width:100%; font-weight:bold;font-size:20px;color:#404040; border:none; background: transparent; outline: 0;"/>
+<br><br>
+<button  class="add_cancel"  type="submit">ADD</button>
+<a href="{%url 'recurring'%}" class="add_cancel">CANCEL</a>
+</li>
+
+</form>
+
+<!--if add task is not hit i.e normal case-->
+{% elif H is 0%}
+  <a href="{%url 'R_add' %}"><li onclick="add_task()" id="add_task"><span class="fas fa-plus-circle fa-2x"> Add Recurring Task</span></li></a>
+  {% endif %}
+
+  {%for t in T%}
+  <li >
+    <!--if task is not done, show un-striked text in the task-->
+    {% if t.done is 0 %}
+    <a href="{%url 'R_finished' t.id%}"><i onclick="finished({{t.id}})" id="tick"  class="fas fa-check-circle fa-2x"></i></a>
+    <p>{{t.tasks}}</p>
+    <!--if task is done, show striked text in the task-->
+    {%else%}
+    <a href="{%url 'R_finished' t.id%}"><i onclick="finished({{t.id}})" id="tick" style="color:red;" class="fas fa-check-circle fa-2x"></i></a>
+    <p style="color:#B8B8B8;"><del>{{t.tasks}}</del></p>
+    {% endif %}
+    
+   <table class="jadu">
+   <tr>
+   <td>
+    <form action="{% url 'R_delete' t.id %}" method="POST">
+    {% csrf_token %}
+    <button class="delete"><i class="fas fa-trash"></i></button>
+    </form>
+</td>
+<td>
+     <form action="{% url 'R_update' t.id %}" method="POST">
+    {% csrf_token %}
+    <button class="delete"><i class="fas fa-pen "></i></button>
+    </form>
+    </tr>
+   </table>
+</td>
+  </li>
+  {% endfor %}
+
+  
+</ul>
+</div>
+
+{% endblock %}

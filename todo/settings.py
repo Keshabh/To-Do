@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-o0+cxng-+_#n!krvfn&!=%gax$p(rgas)-n*x@(51i33*-6cn^
 DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1','tasks-checklist.herokuapp.com']
-
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 
 # Application definition
 

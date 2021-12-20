@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-o0+cxng-+_#n!krvfn&!=%gax$p(rgas)-n*x@(51i33*-6cn^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1','tasks-checklist.herokuapp.com']
 
@@ -81,8 +81,7 @@ DATABASES = {
         'NAME': 'Todo',
         'USER': 'postgres',
         'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'HOST': 'localhost'
     }
 }
 
@@ -125,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS =[os.path.join(BASE_DIR,'static')]
-STATIC_ROOT = os.path.join(BASE_DIR,'assets')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

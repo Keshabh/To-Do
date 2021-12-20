@@ -17,4 +17,8 @@ $('.menu li').on('click', function(event){
       }
   }
   event.stopPropagation(); //Always stop propagation
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> b914b1c0c21198661a9e32631375f1d0efcedc02

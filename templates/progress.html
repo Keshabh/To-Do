@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="head">
+    <h1 style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;"><a style="color:#FFFDFA;text-decoration:None;" href="/">📝Todo List</a></h1>
+
+    <nav class="top_nav">
+      <label for="" class="button" tabindex="1">
+      <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
+      </label>
+      <ul class="menu">
+        <li> <a href="/">Task</a></li>
+        <li> <a href="{%url 'recurring' %}">Recurring Task</a></li>
+        <li> <a href="#">Login</a> </li>
+        <li> <a href="#">Register</a> </li>
+        <li> <a href="{%url 'progress' %}">Progress Bar</a> </li>
+      </ul>
+    </nav>
+
+  </div>
+<hr class="top_line">
+<div class="box">
+<div class="box_head">
+<table>
+<tr>
+<td>
+ <p style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;">Progress Bar</p>
+</td>
+<td style="text-align:center;">
+ <p style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;">{{time}}</p>
+</td>
+<td>
+ <nav>
+   <label for="" class="ellipsis" tabindex="1">
+   <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;" class="fas fa-ellipsis-v fa-1x"></span>
+   </label>
+   <ul class="menu">
+     <li><a href="{%url 'changechartcolor' color='cyan'%}">Cyan</a></li>
+     <li> <a href="{%url 'changechartcolor' color='lightgreen'%}">Green</a> </li>
+     <li> <a href="{%url 'changechartcolor' color='red'%}">Red</a> </li>
+     <li> <a href="{%url 'changechartcolor' color='gold'%}">Gold</a> </li>
+     <li> <a href="{%url 'changechartcolor' color='lightgrey'%}">Grey</a> </li>
+   </ul>
+ </nav>
+</td>
+</tr>
+</table>
+</div>
+<hr class="box_line">
+{{ xVal|json_script:"xVal" }}
+{{ yVal|json_script:"yVal" }}
+{{ color|json_script:"color" }}
+
+<canvas id="myChart" style="position: relative;width:100%;max-width:600px;height:350px;"></canvas>
+
+<script type="text/javascript">
+const xValues = JSON.parse(document.getElementById('xVal').textContent);
+const yValues = JSON.parse(document.getElementById('yVal').textContent);
+var barColors = JSON.parse(document.getElementById('color').textContent);
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues,
+      borderWidth: 1
+      
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: false,
+      fontSize:20,
+      text: "Daily Progress Bar"
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          fontSize: 16,
+          beginAtZero:true,
+          fontColor:'purple'
+      },
+        scaleLabel: {
+          display: true,
+          fontColor:'white',
+          fontSize:18,
+          labelString: 'Completed Task',
+        }
+      }],
+      xAxes: [{
+        ticks: {
+          fontSize: 16,
+          fontColor:'purple'
+      },
+        scaleLabel: {
+          display: true,
+          fontColor:'white',
+          fontSize:18,
+          labelString: 'Last 7 days'
+        }
+      }]
+    }
+  }
+});
+
+
+</script>
+
+{% endblock%}

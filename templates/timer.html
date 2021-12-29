@@ -1,0 +1,377 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Timer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/d59c21f7b9.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="">
+        <style>
+
+            body{background-color:  #ff6666;}
+            .head{width:600px;height:50px;background-color:yellw;margin-left: auto;margin-right: auto;}
+            .top_line{opacity: 0.3;width:600px;}
+            h1{color:white;opacity: 0.8;}
+            .top_nav{position: relative;top:-55px;}
+            nav{float: right;color: white;position: relative;background: #1b11b; width: 20px;padding: 8px 10px;}
+            
+            nav label{font-size: 22px;font-weight: 200;display: block;cursor: pointer;outline: none;}
+            .button span{float: right;line-height: 20px;opacity: 0.8;}
+            #box_border{border:1px solid blueviolet;}
+            #box_border:hover{opacity: 1;border:1px solid white;}
+            nav ul{
+            
+              position: absolute;background: white; list-style: none;color:black;
+              top:40px;width:90%;border-radius: 5px;display: none;
+            }
+            .box_head nav ul{position: absolute; left:60px;top:0px;}
+              
+            
+            nav .menu:before{position: absolute;content: '';height: 20px;width: 20px;
+            background:white;left:15px;top:-5px;transform: rotate(45deg);z-index: 1;}
+            
+            nav label:focus + .menu{
+              display: block;width: 200px;}
+            .menu:hover{display: block;width:200px;} 
+              
+            .box_head nav label:focus + .menu{
+                display: block;width: 200px;}
+            .box_head nav .menu:before{top:5px;left:-3px;}
+            nav ul li{line-height: 30px;padding: 3px 0px 4px; cursor: pointer;
+            border-bottom: 1px solid rgba(0,0,0,0.2);}
+            
+            nav ul li a{color: black;text-decoration: none;font-size: 18px;display: block;}
+            nav ul li{position: static;}
+            
+            nav ul li a:hover{color:black;font-weight:bold;background-color: lightgray;}
+            
+            
+            
+
+            button {
+                border: none;
+                background: none;
+                cursor: pointer;
+                margin: 0;
+                padding: 0;
+                
+            }
+            #mg{font-size:18px;font-weight:bold;box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);background-color: #ff8080;width:100px;height:40px;color:white;opacity:1;}
+            #mg:hover{background-color: #ff6666;cursor:pointer;}
+            #mg:active{background-color: lightgrey;color:black;}
+            
+            table{margin-left:auto;margin-right:auto;}
+            td{text-align:center;font-family:Sans-serif;}
+
+            .fa-play,.fa-pause{color:#e6fff7;}
+            body {
+               
+                height: 100vh;
+                
+                
+              }
+              
+              .base-timer {
+                position: relative;
+                width: 300px;
+                height: 300px;
+                margin-top:20px;
+                margin-left:auto;
+                margin-right:auto;
+              }
+              
+              .base-timer__svg {
+                transform: scaleX(-1);
+              }
+              
+              .base-timer__circle {
+                fill: none;
+                stroke: none;
+              }
+              
+              .base-timer__path-elapsed {
+                stroke-width: 7px;
+                stroke: grey;
+              }
+              
+              .base-timer__path-remaining {
+                stroke-width: 7px;
+                stroke-linecap: round;
+                transform: rotate(90deg);
+                transform-origin: center;
+                transition: 1s linear all;
+                fill-rule: nonzero;
+                stroke: currentColor;
+              }
+              
+              .base-timer__path-remaining.green {
+                color: gold;
+              }
+              
+              .base-timer__path-remaining.orange {
+                color: orange;
+              }
+              
+              .base-timer__path-remaining.red {
+                color: red;
+              }
+              
+              .base-timer__label {
+                position: absolute;
+                width: 300px;
+                height: 300px;
+                top: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 58px;
+                font-weight:bolder;
+                opacity:0.8;
+              }
+
+              input{width:50px;height:40px;font-size:18px;border:1px solid white;border-radius:4px;text-align:center;}
+              #set_reset td{padding-left:10px;padding-right:10px;}
+        </style>
+    </head>
+    <body>
+        <div class="head">
+            <h1 style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;"><a style="color:#FFFDFA;text-decoration:None;" href="/">📝Todo List</a></h1>
+            <nav class="top_nav">
+              <label for="" class="button" tabindex="1">
+                {%if user.is_authenticated%}
+                <span id="box_border" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;background-color:purple;width:35px;height:17px; font-family: Arial, Helvetica, sans-serif;text-align:center;padding-top:50%;padding-bottom:50%;border-radius:100%;">{{user.username|make_list|first|capfirst }}</span>
+       
+               {% else %}
+               <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
+               {% endif %}
+              </label>
+              <ul class="menu">
+                <li> <a href="/">Task</a></li>
+                <li> <a href="{%url 'recurring' %}">Recurring Task</a></li>
+                {% if user.is_authenticated %}
+                <li> <a href="account/logout">Logout</a> </li>
+                {%else%}
+                <li> <a href="account/login">Login/Signup</a> </li>
+                {% endif %}
+                <li> <a href="{%url 'timer' %}">Timer</a> </li>
+                <li> <a href="{%url 'progress' %}">Progress Bar</a> </li>
+              </ul>
+            </nav>
+       
+          </div>
+       <hr class="top_line">
+       
+       
+        <div id="app"><div class="base-timer">
+            <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g class="base-timer__circle">
+                <circle  cx="50" cy="50" r="45" stroke="navajowhite" stroke-width="7"></circle>
+                
+                </g>
+            </svg>
+            <span style="font-family: sans-serif;" id="base-timer-label" class="base-timer__label">{{Min}}:{{Sec}}</span>
+            <span style="position:absolute;top:70px;" id="base-timer-label" class="base-timer__label"><button id="btn" onclick="playAudio()" type="button"><i class="fas fa-play fa-2x"></i></button></span>
+            
+            </div></div>
+
+        <br><br><br>
+        <audio id="myAudio">
+            <source src="{% static 'TGSZM2N-old-alarm-clock.mp3'%}" type="audio/ogg">
+            <source src="{% static 'TGSZM2N-old-alarm-clock.mp3'%}" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+       
+              {% csrf_token %}
+
+              <form id="myform" action="" method="POST">
+                  {% csrf_token %}
+          <table>
+              <tr>
+                  <td><input type="number" name="hr" id="hr" value=00> <b>:</b></td>
+                  <td><input type="number" name="min" id="min" value={{Min}}> <b>:</b></td>
+                  <td><input type="number" name="sec" id="sec" value={{Sec}}></td>
+              </tr>
+              <tr>
+                <td>HR</td>
+                <td>MIN</td>
+                <td>SEC</td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr id="set_reset">
+          <td><button id="mg" type="submit">SET</button></td>
+          <td><form action="{% url 'timer'%}"><button id="mg">RESET</button></form></td>
+            </tr>
+        </table>
+        </form>
+
+    <script>
+        var x = document.getElementById("myAudio"); 
+        function playAudio() { 
+        /*x.play(); 
+        x.pause();
+        start_Timer();*/
+        var butn = document.getElementById("btn");
+        if (!started) {
+            start_Timer();
+            started = true
+            butn.innerHTML = '<i class="fas fa-pause fa-2x"></i>'
+          } else {
+            started = false
+            clearInterval(timerInterval);
+            butn.innerHTML = '<i class="fas fa-play fa-2x"></i>'
+          }
+          
+    } 
+ 
+
+    </script>      
+    
+     
+    <script>
+        started = false;
+         TIME_LIMIT = {{Time_Val}};
+        timePassed = 0;
+         timeLeft = TIME_LIMIT;
+         timerInterval = null;
+         remainingPathColor = COLOR_CODES.info.color;
+        function start_Timer()
+        {
+        // Credit: Mateusz Rybczonec
+
+        const FULL_DASH_ARRAY = 283;
+        const WARNING_THRESHOLD = 10;
+        const ALERT_THRESHOLD = 5;
+
+        const COLOR_CODES = {
+        info: {
+            color: "green"
+        },
+        warning: {
+            color: "orange",
+            threshold: WARNING_THRESHOLD
+        },
+        alert: {
+            color: "red",
+            threshold: ALERT_THRESHOLD
+        }
+        };
+
+        started = false;
+        TIME_LIMIT = {{Time_Val}};
+        /*timePassed = 0;*/
+        /*timeLeft = TIME_LIMIT;*/
+        timerInterval = null;
+         remainingPathColor = COLOR_CODES.info.color;
+
+        document.getElementById("app").innerHTML = `
+        <div class="base-timer">
+        <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g class="base-timer__circle">
+            <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+            <path
+                id="base-timer-path-remaining"
+                stroke-dasharray="283"
+                class="base-timer__path-remaining ${remainingPathColor}"
+                d="
+                M 50, 50
+                m -45, 0
+                a 45,45 0 1,0 90,0
+                a 45,45 0 1,0 -90,0
+                "
+            ></path>
+            </g>
+        </svg>
+        <span style="font-family: sans-serif;" id="base-timer-label" class="base-timer__label">${formatTime(
+            timeLeft
+        )}</span>
+        <span style="position:absolute;top:70px;" id="base-timer-label" class="base-timer__label"><button id="btn" onclick="playAudio()" type="button"><i class="fas fa-pause fa-2x"></i></button></span>
+        </div>
+        `;
+
+        startTimer();
+
+        function onTimesUp() {
+            
+        clearInterval(timerInterval);
+        }
+
+        function startTimer() {
+        timerInterval = setInterval(() => {
+            
+            timePassed = timePassed += 1;
+            timeLeft = TIME_LIMIT - timePassed;
+            document.getElementById("base-timer-label").innerHTML = formatTime(
+            timeLeft
+            );
+            setCircleDasharray();
+            setRemainingPathColor(timeLeft);
+            
+            if (timeLeft === 0) {
+                var x = document.getElementById("myAudio"); 
+                timePassed=-1;
+                timeleft=TIME_LIMIT;
+                var butn = document.getElementById("btn");
+                butn.innerHTML = '<i class="fas fa-play fa-2x"></i>'
+                started=false;
+                x.play();
+            onTimesUp();
+            }
+        }, 1000);
+        }
+
+        function formatTime(time) {
+        const minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+
+        if (seconds < 10) {
+            seconds = `0${seconds}`;
+        }
+
+        return `${minutes}:${seconds}`;
+        }
+
+        function setRemainingPathColor(timeLeft) {
+        const { alert, warning, info } = COLOR_CODES;
+        if (timeLeft <= alert.threshold) {
+            document
+            .getElementById("base-timer-path-remaining")
+            .classList.remove(warning.color);
+            document
+            .getElementById("base-timer-path-remaining")
+            .classList.add(alert.color);
+        } else if (timeLeft <= warning.threshold) {
+            document
+            .getElementById("base-timer-path-remaining")
+            .classList.remove(info.color);
+            document
+            .getElementById("base-timer-path-remaining")
+            .classList.add(warning.color);
+        }
+        }
+
+        function calculateTimeFraction() {
+        const rawTimeFraction = timeLeft / TIME_LIMIT;
+        return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+        }
+
+        function setCircleDasharray() {
+        const circleDasharray = `${(
+            calculateTimeFraction() * FULL_DASH_ARRAY
+        ).toFixed(0)} 283`;
+        document
+            .getElementById("base-timer-path-remaining")
+            .setAttribute("stroke-dasharray", circleDasharray);
+        }
+
+        }
+    </script>
+    
+</body>
+</html>

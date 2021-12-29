@@ -9,6 +9,7 @@ background: #1b11b; width: 20px;padding: 8px 10px;}
 
 nav label{font-size: 22px;font-weight: 200;display: block;cursor: pointer;outline: none;}
 .button span{float: left;line-height: 20px;opacity: 0.8;}
+
 nav ul{
 
   position: absolute;background: white; list-style: none;color:black;

@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,re_path
 
 from . import views
 
@@ -16,6 +16,10 @@ urlpatterns = [
     path('R_finished/<int:id>/',views.R_finished,name='R_finished'),
     path('R_delete_all',views.R_delete_all,name='R_delete_all'),
     path('R_clear_finished',views.R_clear_finished,name='R_clear_finished'),
-    path('R_add',views.R_add,name='R_add')
+    path('R_add',views.R_add,name='R_add'),
+    path('progress',views.progress,name='progress'),
+    re_path(r'^changechartcolor/(?P<color>[a-z].*)/$', views.changechartcolor,name='changechartcolor'),
+    path('timer',views.timer,name='timer')
+
     
 ]

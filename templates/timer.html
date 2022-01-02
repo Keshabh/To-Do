@@ -110,7 +110,7 @@
               }
               
               .base-timer__path-remaining.green {
-                color: gold;
+                color: lightgreen;
               }
               
               .base-timer__path-remaining.orange {
@@ -134,8 +134,9 @@
                 opacity:0.8;
               }
 
-              input{width:50px;height:40px;font-size:18px;border:1px solid white;border-radius:4px;text-align:center;}
+              input{background-color:mintcream;width:50px;height:40px;font-size:18px;border:1px solid white;border-radius:4px;text-align:center;}
               #set_reset td{padding-left:10px;padding-right:10px;}
+    
         </style>
     </head>
     <body>
@@ -246,8 +247,8 @@
         // Credit: Mateusz Rybczonec
 
         const FULL_DASH_ARRAY = 283;
-        const WARNING_THRESHOLD = 10;
-        const ALERT_THRESHOLD = 5;
+        const WARNING_THRESHOLD = TIME_LIMIT-TIME_LIMIT/3;
+        const ALERT_THRESHOLD = TIME_LIMIT/3;
 
         const COLOR_CODES = {
         info: {

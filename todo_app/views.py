@@ -203,13 +203,14 @@ def R_clear_finished(request):
 
 def progress(request):
     if request.method=='GET':
-        T=Progress.objects.all()
+        T=Progress.objects.all().order_by('id')
         C=Chartcolor.objects.all()
         xValues=[]
         yValues=[]
         for i in T:
             xValues.append(i.date)
             yValues.append(i.progress)
+        print(T)
         xValues=xValues[-7:]
         yValues=yValues[-7:]
         return render(request,'progress.html',{'time':date,'xVal':xValues,'yVal':yValues,'color':C[0].color})

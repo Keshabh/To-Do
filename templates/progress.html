@@ -11,8 +11,12 @@
       <ul class="menu">
         <li> <a href="/">Task</a></li>
         <li> <a href="{%url 'recurring' %}">Recurring Task</a></li>
-        <li> <a href="#">Login</a> </li>
-        <li> <a href="#">Register</a> </li>
+        {% if user.is_authenticated %}
+        <li> <a href="account/logout">Logout</a> </li>
+        {%else%}
+        <li> <a href="account/login">Login/Signup</a> </li>
+        {% endif %}
+        <li> <a href="{%url 'timer' %}">Timer</a> </li>
         <li> <a href="{%url 'progress' %}">Progress Bar</a> </li>
       </ul>
     </nav>
@@ -63,8 +67,9 @@ new Chart("myChart", {
     labels: xValues,
     datasets: [{
       backgroundColor: barColors,
+      
       data: yValues,
-      borderWidth: 1
+      borderWidth: 3
       
     }]
   },
@@ -85,20 +90,20 @@ new Chart("myChart", {
         scaleLabel: {
           display: true,
           fontColor:'white',
-          fontSize:18,
+          fontSize:16,
           labelString: 'Completed Task',
         }
       }],
       xAxes: [{
         ticks: {
-          fontSize: 16,
+          fontSize: 14,
           fontColor:'purple'
       },
         scaleLabel: {
           display: true,
           fontColor:'white',
-          fontSize:18,
-          labelString: 'Last 7 days'
+          fontSize:16,
+          labelString: 'Last 7 days (Days you logged in)'
         }
       }]
     }

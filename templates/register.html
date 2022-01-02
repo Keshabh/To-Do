@@ -1,3 +1,4 @@
+{% load socialaccount %}
 {%load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -8,7 +9,7 @@
     <title>Sign Up</title>
     <style media="screen">
       body{background-color:#ff6666;;font-family: Arial, sans-serif;}
-      h1{color:white;text-align:center;margin-top:70px;}
+      h1{color:white;text-align:center;margin-top:40px;}
       .login_box{background-color:white;width:30%;height:550px;margin:auto;border-radius:15px;}
       h2{text-align:center;padding-top:30px;font-weight: normal;}
       .info{width:80%;height:200px;margin: auto;}
@@ -58,7 +59,7 @@
     </style>
   </head>
   <body>
-      <h1></h1>
+    <h1 style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;margin-right:30px;"><a style="color:#FFFDFA;text-decoration:None;font-size:30px;" href="/">📝Todo List</a></h1>
     <div class="login_box">
        <h2>Sign Up</h2>
        <form class="info" action="register" method="post">
@@ -74,7 +75,7 @@
           <br>
           {%if messages%}
           {%for message in messages%}
-          <p style="text-align:center;"><a style="text-decoration:none;" href="{%url 'register'%}">❌ </a>{{message}}</p>
+          <p id="clr_msg" style="text-align:center;"><a style="text-decoration:none;cursor:pointer;"  onclick="clear_message()">❌ </a>{{message}}</p>
           {% endfor %}
           {% else %}
           <p style="text-align:center;visibility:hidden;">Hello Keshabh</p>
@@ -88,13 +89,13 @@
            <table>
              <tr>
                <td>
-            <a href="#" class="login100-social-item">
+            <a href="{% provider_login_url 'google' %}" class="login100-social-item">
               <i class="fa fa-facebook-f"></i>
             </a>
           </td>
 
   <td>
-            <a href="#" class="login100-social-item">
+            <a class="login100-social-item" href="{% provider_login_url 'google' %}">
               <img src="{%static 'icon-google.png' %}" alt="GOOGLE">
             </a>
           </td>
@@ -104,5 +105,11 @@
           <br>
        </form>
     </div>
+    <script>
+      function clear_message()
+      {
+         document.getElementById("clr_msg").innerHTML="";
+      }
+    </script>
   </body>
 </html>

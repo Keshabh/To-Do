@@ -10,12 +10,16 @@
        <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
        </label>
        <ul class="menu">
-         <li> <a href="/">Task</a></li>
-         <li> <a href="{%url 'recurring' %}">Recurring Task</a></li>
-         <li> <a href="#">Login</a> </li>
-         <li> <a href="#">Register</a> </li>
-         <li> <a href="{%url 'progress'%}">Progress Bar</a> </li>
-       </ul>
+        <li> <a href="/">Task</a></li>
+        <li> <a href="{%url 'recurring' %}">Recurring Task</a></li>
+        {% if user.is_authenticated %}
+        <li> <a href="account/logout">Logout</a> </li>
+        {%else%}
+        <li> <a href="account/login">Login/Signup</a> </li>
+        {% endif %}
+        <li> <a href="{%url 'timer' %}">Timer</a> </li>
+        <li> <a href="{%url 'progress' %}">Progress Bar</a> </li>
+      </ul>
      </nav>
 
    </div>

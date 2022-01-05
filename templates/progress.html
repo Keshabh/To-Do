@@ -44,11 +44,9 @@
    <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;" class="fas fa-ellipsis-v fa-1x"></span>
    </label>
    <ul class="menu">
-     <li><a href="{%url 'changechartcolor' color='cyan'%}">Vertical Bar Chart</a></li>
-     <li> <a href="{%url 'changechartcolor' color='lightgreen'%}">Line Chart</a> </li>
-     <li> <a href="{%url 'changechartcolor' color='red'%}">Bubble Chart</a> </li>
-     <li> <a href="{%url 'changechartcolor' color='gold'%}">Area Chart</a> </li>
-     <li> <a href="{%url 'changechartcolor' color='lightgrey'%}">Stacked Bar Chart</a> </li>
+     <li><a href="{%url 'changechartcolor' color='bar'%}">Bar Chart</a></li>
+     <li> <a href="{%url 'changechartcolor' color='line'%}">Line Chart</a> </li>
+     <li> <a href="{%url 'changechartcolor' color='area'%}">Area Chart</a> </li>
    </ul>
  </nav>
 </td>
@@ -64,12 +62,16 @@
 <canvas id="myChart" style="height:400px;width:100%;max-width:1000px;background-color:white;opacity:0.8;"></canvas>
 
 <script type="text/javascript">
-  const xValues = JSON.parse(document.getElementById('xVal').textContent);
-  const yValues = JSON.parse(document.getElementById('yVal').textContent);
-  const zValues = JSON.parse(document.getElementById('zVal').textContent);
-  var barColors = JSON.parse(document.getElementById('color').textContent);
+  xValues = JSON.parse(document.getElementById('xVal').textContent);
+  yValues = JSON.parse(document.getElementById('yVal').textContent);
+  zValues = JSON.parse(document.getElementById('zVal').textContent);
+  barColors = JSON.parse(document.getElementById('color').textContent);
+</script>
+  
 
-
+<script>
+  if(barColors == 'line')
+  {
 new Chart("myChart", {
   type: "line",
   
@@ -79,12 +81,14 @@ new Chart("myChart", {
     datasets: [{ 
       data: yValues,
       borderColor: "red",
+      backgroundColor:"red",
       fill: false,
       label:'Completed Task'
     }, 
     { 
       data: zValues,
       borderColor: "blue",
+      backgroundColor:"blue",
       fill: false,
       label:'Total Task',
       
@@ -95,9 +99,9 @@ new Chart("myChart", {
   options: {
     legend: {display: true},
     title: {
-      display: false,
-      fontSize:20,
-      text: "Daily Progress Bar"
+      display: true,
+      fontSize:12,
+      text: "Line Graph"
     },
     scales: {
       yAxes: [{
@@ -110,7 +114,7 @@ new Chart("myChart", {
           display: true,
           fontColor:'black',
           fontSize:16,
-          labelString: 'Completed Task',
+          labelString: 'Number of Task',
         }
       }],
       xAxes: [{
@@ -130,6 +134,125 @@ new Chart("myChart", {
   
   
 });
+  }
+  else if(barColors == 'bar')
+  {
+    new Chart("myChart", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: 'orange',
+          data: yValues,
+          fill: false,
+          label:'Completed Task'
+        },
+        {
+          backgroundColor: 'lightgreen',
+          data: zValues,
+          fill: false,
+          label:'Total Task'
+        }]
+      },
+      options: {
+        legend: {display: true},
+        title: {
+          display: true,
+          fontSize:12,
+          text: "Bar Graph"
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              fontSize: 16,
+              beginAtZero:true,
+              fontColor:'green'
+          },
+            scaleLabel: {
+              display: true,
+              fontColor:'black',
+              fontSize:16,
+              labelString: 'Number of Task',
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontSize: 10,
+              fontColor:'green'
+          },
+            scaleLabel: {
+              display: true,
+              fontColor:'black',
+              fontSize:16,
+              labelString: 'Last 7 days (Days you logged in)'
+            }
+          }]
+        }
+      }
+    });
+  }
+  else{
+    var ctx = document.getElementById("myChart").getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: xValues,
+        datasets: [{
+            label: 'Completed Task', // Name the series
+            data: yValues, // Specify the data values array
+            fill: true,
+            borderColor: '#2196f3', // Add custom color border (Line)
+            backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+            borderWidth: 1 // Specify bar border width
+        },
+                  {
+            label: 'Total Task', // Name the series
+            data: zValues, // Specify the data values array
+            fill: true,
+            borderColor: '#4CAF50', // Add custom color border (Line)
+            backgroundColor: '#4CAF50', // Add custom color background (Points and Fill)
+            borderWidth: 1 // Specify bar border width
+        }]
+    },
+    options: {
+      responsive: true, // Instruct chart js to respond nicely.
+      maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+      title: {
+        display: true,
+        fontSize:12,
+        text: "Area Graph"
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            fontSize: 16,
+            beginAtZero:true,
+            fontColor:'green'
+        },
+          scaleLabel: {
+            display: true,
+            fontColor:'black',
+            fontSize:16,
+            labelString: 'Number of Task',
+          }
+        }],
+        xAxes: [{
+          ticks: {
+            fontSize: 10,
+            fontColor:'green'
+        },
+          scaleLabel: {
+            display: true,
+            fontColor:'black',
+            fontSize:16,
+            labelString: 'Last 7 days (Days you logged in)'
+          }
+        }]
+      }
+    }
+});
+  }
 </script>
 
 

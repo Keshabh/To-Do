@@ -9,6 +9,9 @@
     <title>Log In</title>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/d59c21f7b9.js" crossorigin="anonymous"></script>
+    <link rel = "icon" href = "
+        https://iconarchive.com/download/i99584/blackvariant/button-ui-requests-5/ToDo-List.ico" 
+        type = "image/x-icon">
     <style media="screen">
       body{background-color:#ff6666;;font-family: Arial, sans-serif;}
       h1{color:white;text-align:center;margin-top:40px;}
@@ -73,7 +76,7 @@
           <p><b style="opacity:0.85;">Enter Password:</b></p>
           <input type="password" name="password" value="">
           <br>
-          {%if messages %}
+          {%if messages and 'signed' not in messages %}
           {%for message in messages%}
           <p id="clr_msg" style="text-align:center;"><a style="text-decoration:none;cursor:pointer;" onclick="clear_message()">❌ </a>{{message}}</p>
           {% endfor %}

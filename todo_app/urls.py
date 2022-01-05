@@ -1,4 +1,6 @@
 from django.urls import path,re_path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -19,7 +21,13 @@ urlpatterns = [
     path('R_add',views.R_add,name='R_add'),
     path('progress',views.progress,name='progress'),
     re_path(r'^changechartcolor/(?P<color>[a-z].*)/$', views.changechartcolor,name='changechartcolor'),
-    path('timer',views.timer,name='timer')
+    path('changeaudio/<int:audio_number>/',views.changeaudio,name='changeaudio'),
+    path('timer',views.timer,name='timer'),
+    path('simple_upload',views.simple_upload,name='simple_upload'),
+    path('delete_audio/<int:num>/',views.delete_audio,name='delete_audio')
 
     
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

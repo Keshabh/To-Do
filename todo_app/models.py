@@ -19,6 +19,7 @@ class Progress(models.Model):
     date=models.CharField(max_length=20)
     #it is to store the date every time user opens the app
     progress=models.IntegerField(default=0)
+    total=models.IntegerField(default=0)
     #this contains how many work you have done in the specific date
 
 class Chartcolor(models.Model):
@@ -27,4 +28,7 @@ class Chartcolor(models.Model):
 
 class Timer(models.Model):
     time=models.IntegerField(default=120)
+
+class Audio(models.Model):
+    audio_number = models.IntegerField(default=0)
 

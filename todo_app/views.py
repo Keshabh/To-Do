@@ -6,9 +6,19 @@ from datetime import date
 import calendar
 from .forms import Add_Task,R_Add_Task
 from django.contrib.auth.models import User,auth
+from django.contrib.staticfiles.storage import staticfiles_storage
+
+from django.shortcuts import render
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from os import listdir
+from os.path import isfile, join
+from django.core.files.storage import default_storage
+from django.contrib import messages
 
 
-from todo_app.models import Chartcolor, Progress, Tasks,Recurring, Timer
+
+from todo_app.models import Chartcolor, Progress, Tasks,Recurring, Timer,Audio
 # Create your views here.
 curr_date = date.today()
 day=calendar.day_name[curr_date.weekday()]
@@ -37,13 +47,16 @@ def index(request):
     #delete todays task data from Progress
     #add new data with todays date and progress value stored in p
     p=len(Recurring.objects.filter(done=1)) + len(Tasks.objects.filter(done=1))
+    ttl=len(Recurring.objects.all()) + len(Tasks.objects.all())
+    #in try: check if todays data is available or not, if yes then delete the data.
     try:
      d = Progress.objects.filter(date=tme)
      d.delete()
     except:
         pass
+    #enter new data of today
     #update progress
-    obj = Progress(date=tme,progress=p)
+    obj = Progress(date=tme,progress=p,total=ttl)
     obj.save()
      
 
@@ -207,13 +220,16 @@ def progress(request):
         C=Chartcolor.objects.all()
         xValues=[]
         yValues=[]
+        zValues=[]
         for i in T:
             xValues.append(i.date)
             yValues.append(i.progress)
+            zValues.append(i.total)
         print(T)
         xValues=xValues[-7:]
         yValues=yValues[-7:]
-        return render(request,'progress.html',{'time':date,'xVal':xValues,'yVal':yValues,'color':C[0].color})
+        zValues=zValues[-7:]
+        return render(request,'progress.html',{'time':date,'xVal':xValues,'yVal':yValues,'zVal':zValues,'color':C[0].color})
 
 def changechartcolor(request,color):
     if request.method=='GET':
@@ -223,10 +239,47 @@ def changechartcolor(request,color):
         upd.save()
         return HttpResponseRedirect('/progress')
 
+
+def changeaudio(request,audio_number):
+    if request.method=='GET':
+        C=Audio.objects.all()
+        C.delete()
+        upd=Audio(audio_number=audio_number)
+        upd.save()
+        return HttpResponseRedirect('/timer')
+
 def timer(request):
     if request.method=='GET':
         #fetch the value of set timer from Timer table
         T=Timer.objects.all()
+        #lets store all audio in a file:
+        #any from database we will get the index and that index audio will be sent to timer page.
+        aud_list = ['TGSZM2N-old-alarm-clock.mp3','y2mate-com-scam-1992-bgm-52384.mp3','y2mate-com-harry-potter-ringtone-bgm-tone-54095.mp3','sultan-abdul-hamid-music125165-52996.mp3','kgf-bgm-ringtone-44262.mp3','titanic-20romantic-23691.mp3']
+        #trying to access the media files uploaded by user from media folder
+        media_path = settings.MEDIA_ROOT
+        myfiles = [f for f in listdir(media_path) if isfile(join(media_path, f))]
+        #trim the name of audio files in myfiles
+        
+        custom_aud=[]
+        for i in myfiles:
+            custom_aud.append('/media/'+i)
+            
+
+        index=Audio.objects.all()[0].audio_number
+        try:
+          aud = staticfiles_storage.url(aud_list[index])
+        except:
+          aud=custom_aud[index-6]
+
+        temp=[]
+        global vmp
+        vmp=myfiles
+        for i in myfiles:
+            a=i[:-4]
+            temp.append(a[:12] if len(a)>12 else a)
+        myfiles=temp
+        audio_name =['Bell','Scam 1992', 'Harry Potter','Drive Forever','KGF','Titanic']
+        audio_name+=myfiles
         #Time is in seconds
         Time=T[0].time
         if Time < 60:
@@ -239,7 +292,7 @@ def timer(request):
         if sec<10:
                 sec = str(sec)
                 sec = '0'+ sec
-        return render(request,'timer.html',{'Time_Val':Time,'Min':min,'Sec':sec})
+        return render(request,'timer.html',{'Time_Val':Time,'Min':min,'Sec':sec,'Aud':aud,'time':date,'Index':index,'Aud_name':audio_name,'Cust_name':myfiles})
     else:
         try:
          hr=int(request.POST['hr'])
@@ -268,4 +321,29 @@ def timer(request):
 
 
         
+def simple_upload(request):
+    if request.method == 'POST' and request.FILES.get('myfile', False):
+        myfile = request.FILES['myfile']
+        #provide limit of 3 files to be added, if more than 3 is addded, pass a message to user
+        media_path = settings.MEDIA_ROOT
+        myfiles = [f for f in listdir(media_path) if isfile(join(media_path, f))]
+    
+        if myfile.name[-3:] == 'mp3':
+            if len(myfiles) <=2 :
+                fs = FileSystemStorage()
+                filename = fs.save(myfile.name, myfile)
+            else:
+                messages.info(request,'There is a limit of 3 custom audio files. Delete 1 to add this.')
+                #send the message in timer that "Its not an audio file."
+            #uploaded_file_url = fs.url(filename)
+        else:
+            messages.info(request,'It is not an audio file.')
+    return HttpResponseRedirect('/timer')
 
+def delete_audio(request,num):
+    #when any delete request is made, set the audio_index in Audio database to 0.
+    changeaudio(request,0)
+    #now delete the audio number passed from media folder
+    default_storage.delete('/Users/DCQUASTER JACK/projects/todo/media/'+vmp[6-num])
+    
+    return HttpResponseRedirect('/timer')

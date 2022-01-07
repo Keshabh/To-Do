@@ -216,7 +216,10 @@ def R_clear_finished(request):
 
 def progress(request):
     if request.method=='GET':
-        T=Progress.objects.all().order_by('id')
+        try:
+          T=Progress.objects.all().order_by('id')
+        except:
+          T=Progress.objects.all()
         C=Chartcolor.objects.all()
         xValues=[]
         yValues=[]
@@ -225,10 +228,12 @@ def progress(request):
             xValues.append(i.date)
             yValues.append(i.progress)
             zValues.append(i.total)
-        print(T)
-        xValues=xValues[-7:]
-        yValues=yValues[-7:]
-        zValues=zValues[-7:]
+        try:
+            xValues=xValues[-7:]
+            yValues=yValues[-7:]
+            zValues=zValues[-7:]
+        except:
+            u=3
         return render(request,'progress.html',{'time':date,'xVal':xValues,'yVal':yValues,'zVal':zValues,'color':C[0].color})
 
 def changechartcolor(request,color):

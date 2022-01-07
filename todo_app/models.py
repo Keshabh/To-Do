@@ -23,7 +23,7 @@ class Progress(models.Model):
     #this contains how many work you have done in the specific date
 
 class Chartcolor(models.Model):
-    color=models.CharField(max_length=20,default="red")
+    color=models.CharField(max_length=20,default="line")
     #stores the color for user to choose it for their graph and to change it permanently 
 
 class Timer(models.Model):

@@ -215,17 +215,14 @@ def R_clear_finished(request):
         return HttpResponseRedirect('/recurring')
 
 def progress(request):
-    return HttpResponse("<h1>Hello World</h1>")
-    '''
     if request.method=='GET':
-        try:
-          T=Progress.objects.all().order_by('id')
-        except:
-          T=Progress.objects.all()
+        T=Progress.objects.all().order_by('id')
         C=Chartcolor.objects.all()
         xValues=[]
         yValues=[]
         zValues=[]
+        return HttpResponse("<h1>Hello</h1>")
+        '''
         for i in T:
             xValues.append(i.date)
             yValues.append(i.progress)

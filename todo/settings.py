@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,15 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 #for localhost
 #uncomment below line and comment upper one's
-SECRET_KEY = 'django-insecure-o0+cxng-+_#n!krvfn&!=%gax$p(rgas)-n*x@(51i33*-6cn^'
-DEBUG = True
+#SECRET_KEY = 'django-insecure-o0+cxng-+_#n!krvfn&!=%gax$p(rgas)-n*x@(51i33*-6cn^'
+#DEBUG = True
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = False
+DEBUG = False
 
 ALLOWED_HOSTS = ['taskschecklist.herokuapp.com',"localhost",'127.0.0.1']
 
@@ -211,3 +213,4 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
+django_heroku.settings(locals())

@@ -229,8 +229,7 @@ def progress(request):
         xValues=xValues[-7:]
         yValues=yValues[-7:]
         zValues=zValues[-7:]
-        return HttpResponse("<h1>Hello</h1>")
-        #return render(request,'progress.html',{'time':date,'xVal':xValues,'yVal':yValues,'zVal':zValues,'color':C[0].color}) '''
+        return render(request,'progress.html',{'time':date,'xVal':xValues,'yVal':yValues,'zVal':zValues,'color':C[0].color}) 
 
 def changechartcolor(request,color):
     if request.method=='GET':

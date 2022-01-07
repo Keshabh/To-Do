@@ -221,19 +221,16 @@ def progress(request):
         xValues=[]
         yValues=[]
         zValues=[]
-        return HttpResponse("<h1>Hello</h1>")
-        '''
         for i in T:
             xValues.append(i.date)
             yValues.append(i.progress)
             zValues.append(i.total)
-        try:
-            xValues=xValues[-7:]
-            yValues=yValues[-7:]
-            zValues=zValues[-7:]
-        except:
-            u=3
-        return render(request,'progress.html',{'time':date,'xVal':xValues,'yVal':yValues,'zVal':zValues,'color':C[0].color}) '''
+
+        xValues=xValues[-7:]
+        yValues=yValues[-7:]
+        zValues=zValues[-7:]
+        return HttpResponse("<h1>Hello</h1>")
+        #return render(request,'progress.html',{'time':date,'xVal':xValues,'yVal':yValues,'zVal':zValues,'color':C[0].color}) '''
 
 def changechartcolor(request,color):
     if request.method=='GET':

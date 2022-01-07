@@ -215,6 +215,8 @@ def R_clear_finished(request):
         return HttpResponseRedirect('/recurring')
 
 def progress(request):
+    return HttpResponse("<h1>Hello World</h1>")
+    '''
     if request.method=='GET':
         try:
           T=Progress.objects.all().order_by('id')
@@ -234,7 +236,7 @@ def progress(request):
             zValues=zValues[-7:]
         except:
             u=3
-        return render(request,'progress.html',{'time':date,'xVal':xValues,'yVal':yValues,'zVal':zValues,'color':C[0].color})
+        return render(request,'progress.html',{'time':date,'xVal':xValues,'yVal':yValues,'zVal':zValues,'color':C[0].color}) '''
 
 def changechartcolor(request,color):
     if request.method=='GET':

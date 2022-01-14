@@ -258,9 +258,10 @@ def timer(request):
         #trying to access the contents of Audio_store
         #media_path = settings.MEDIA_ROOT
         #myfiles = [f for f in listdir(media_path) if isfile(join(media_path, f))]
+        global custom_audio
         myfiles = Audio_store.objects.all()
         #trim the name of audio files in myfiles
-        
+        custom_audio = myfiles
         custom_aud=[]
         for i in myfiles:
             custom_aud.append('media/' + str(i.record))
@@ -275,13 +276,12 @@ def timer(request):
         global vmp
         vmp=myfiles
         
-        '''
         for i in custom_aud:
             a=i[:-4]
-            temp.append(a[:12] if len(a)>12 else a)
-            '''
-        #myfiles=temp
-        myfiles=custom_aud
+            temp.append(a[16:30] if len(a)>12 else a)
+
+        myfiles=temp
+        #myfiles=custom_aud
         audio_name =['Bell','Scam 1992', 'Harry Potter','Drive Forever','KGF','Titanic']
         audio_name+=myfiles
         #Time is in seconds
@@ -350,12 +350,10 @@ def simple_upload(request):
     return HttpResponseRedirect('/timer')
 
 def delete_audio(request,num):
-    pass
-'''
     #when any delete request is made, set the audio_index in Audio database to 0.
     changeaudio(request,0)
     #now delete the audio number passed from media folder
-    default_storage.delete('/Users/DCQUASTER JACK/projects/todo/media/'+vmp[6-num])
-    
+    #default_storage.delete('/Users/DCQUASTER JACK/projects/todo/media/'+vmp[6-num])
+    d = Audio_store.objects.get(record=custom_audio[num-6].record)
+    d.delete()
     return HttpResponseRedirect('/timer')
-'''

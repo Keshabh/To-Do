@@ -256,30 +256,34 @@ def timer(request):
         #any from database we will get the index and that index audio will be sent to timer page.
         aud_list = ['TGSZM2N-old-alarm-clock.mp3','y2mate-com-scam-1992-bgm-52384.mp3','y2mate-com-harry-potter-ringtone-bgm-tone-54095.mp3','sultan-abdul-hamid-music125165-52996.mp3','kgf-bgm-ringtone-44262.mp3','titanic-20romantic-23691.mp3']
         #trying to access the media files uploaded by user from media folder
-        media_path = settings.MEDIA_ROOT
-        myfiles = [f for f in listdir(media_path) if isfile(join(media_path, f))]
+        #media_path = settings.MEDIA_ROOT
+        #myfiles = [f for f in listdir(media_path) if isfile(join(media_path, f))]
         #trim the name of audio files in myfiles
-        
+        '''
         custom_aud=[]
         for i in myfiles:
             custom_aud.append('/media/'+i)
             
-
+'''
         index=Audio.objects.all()[0].audio_number
         try:
           aud = staticfiles_storage.url(aud_list[index])
         except:
-          aud=custom_aud[index-6]
+          #aud=custom_aud[index-6]
+          pass
 
         temp=[]
         global vmp
-        vmp=myfiles
+        #vmp=myfiles
+        '''
         for i in myfiles:
             a=i[:-4]
             temp.append(a[:12] if len(a)>12 else a)
         myfiles=temp
+        '''
+        myfiles=[]
         audio_name =['Bell','Scam 1992', 'Harry Potter','Drive Forever','KGF','Titanic']
-        audio_name+=myfiles
+        #audio_name+=myfiles
         #Time is in seconds
         Time=T[0].time
         if Time < 60:
@@ -322,6 +326,8 @@ def timer(request):
 
         
 def simple_upload(request):
+    return HttpResponse("<h1>Site is currently under maintenance!")
+'''
     if request.method == 'POST' and request.FILES.get('myfile', False):
         myfile = request.FILES['myfile']
         #provide limit of 3 files to be added, if more than 3 is addded, pass a message to user
@@ -340,10 +346,14 @@ def simple_upload(request):
             messages.info(request,'It is not an audio file.')
     return HttpResponseRedirect('/timer')
 
+'''
 def delete_audio(request,num):
+    pass
+'''
     #when any delete request is made, set the audio_index in Audio database to 0.
     changeaudio(request,0)
     #now delete the audio number passed from media folder
     default_storage.delete('/Users/DCQUASTER JACK/projects/todo/media/'+vmp[6-num])
     
     return HttpResponseRedirect('/timer')
+'''

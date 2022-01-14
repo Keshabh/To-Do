@@ -32,3 +32,8 @@ class Timer(models.Model):
 class Audio(models.Model):
     audio_number = models.IntegerField(default=0)
 
+class Audio_store(models.Model):
+    record=models.FileField(upload_to='documents/')
+    class Meta:
+        db_table='Audio_store'
+

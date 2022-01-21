@@ -44,9 +44,9 @@
    <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;" class="fas fa-ellipsis-v fa-1x"></span>
    </label>
    <ul class="menu">
-     <li><a href="{%url 'changechartcolor' color='bar'%}">Bar Chart</a></li>
-     <li> <a href="{%url 'changechartcolor' color='line'%}">Line Chart</a> </li>
-     <li> <a href="{%url 'changechartcolor' color='area'%}">Area Chart</a> </li>
+     <li><a href="{%url 'changechartcolor' color='bar'%}"> {%if color == 'bar'%}<mark style="color:green;background-color:transparent;font-size:26px;position:absolute;left:11px;">✓</mark>{%endif%} Bar Chart</a></li>
+     <li> <a href="{%url 'changechartcolor' color='line'%}">{%if color == 'line'%}<mark style="color:green;background-color:transparent;font-size:26px;position:absolute;left:11px;">✓</mark>{%endif%}Line Chart</a> </li>
+     <li> <a href="{%url 'changechartcolor' color='area'%}">{%if color == 'area'%}<mark style="color:green;background-color:transparent;font-size:26px;position:absolute;left:11px;">✓</mark>{%endif%}Area Chart</a> </li>
    </ul>
  </nav>
 </td>

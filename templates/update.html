@@ -56,6 +56,7 @@
 <li class="hak" style="padding-left:20px;padding-right:20px;width:455px;padding-top:15px;">
 <input autofocus id="myText" value=" {{ti.tasks}}" type="text" name="tasks" style="width:100%; font-weight:bold;font-size:20px;color:#404040; border:none; background: transparent; outline: 0;"/>
 <br><br>
+<input name="userid" style="visibility:hidden;" value={{user.id}} />
 <button  class="add_cancel"  type="submit">UPDATE</button>
 <a href="{%url 'index' %}" class="add_cancel"> CANCEL</a>
 </li>

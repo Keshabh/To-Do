@@ -3,6 +3,7 @@ body{background-color:  #ff6666;}
 .head{width:600px;height:50px;background-color:yellw;margin-left: auto;margin-right: auto;}
 .top_line{opacity: 0.3;width:600px;}
 h1{color:white;opacity: 0.8;}
+
 .top_nav{position: relative;top:-55px;}
 nav{float: right;color: white;position: relative;
 background: #1b11b; width: 20px;padding: 8px 10px;}
@@ -11,35 +12,15 @@ nav label{font-size: 22px;font-weight: 200;display: block;cursor: pointer;outlin
 .button span{float: right;line-height: 20px;opacity: 0.8;}
 #box_border{border:1px solid blueviolet;}
 #box_border:hover{opacity: 1;border:1px solid white;}
-nav ul{
-
-  position: absolute;background: white; list-style: none;color:black;
-  top:40px;width:90%;border-radius: 5px;display: none;
-}
-.box_head nav ul{position: absolute; left:60px;top:0px;}
-  
-
-nav .menu:before{position: absolute;content: '';height: 20px;width: 20px;
-background:white;left:15px;top:-5px;transform: rotate(45deg);z-index: 1;}
-
-nav label:focus + .menu{
-  display: block;width: 200px;}
 .menu:hover{display: block;width:200px;} 
   
-.box_head nav label:focus + .menu{
-    display: block;width: 200px;}
-.box_head nav .menu:before{top:5px;left:-3px;}
-nav ul li{line-height: 30px;padding: 3px 0px 4px; cursor: pointer;
-border-bottom: 1px solid rgba(0,0,0,0.2);}
 
-nav ul li a{color: black;text-decoration: none;font-size: 18px;display: block;}
-nav ul li{position: static;}
 
-nav ul li a:hover{color:black;font-weight:bold;background-color: lightgray;}
 
-.box{margin-top: 30px;width: 500px;background-color: yello;height: 400px;margin-left:auto;margin-right: auto;}
+
+.box{margin-top: 30px;width: 500px;height: 400px;margin-left:auto;margin-right: auto;}
 /*.box_head p{float:left;padding-right: 27%;font-weight: bold;font-size: 20px;}*/
-.box_head i{margin-top: 20px;padding: 5px;}
+
 .box_line{width:500px;opacity: 0.5;}
 .list{width: 500px;height: 400px;}
 .list li{position:relative;display:inline-block;border-radius: 7px;list-style: none;width:99%;min-height:50px;background-color: white;color:black;
@@ -88,3 +69,62 @@ margin-bottom: 10px;margin-left: -38px;}
 
 
 
+
+@media only screen and (max-width: 500px) {
+.head{width:130%;height:50px;margin-left:15px;margin-right:10px;}
+.top_line{opacity: 0.3;width:135%;margin-left:15px;margin-right:10px;}
+.box{margin-top: 30px;width: 500px;height: 400px;margin-left:15px;margin-right: 10px;}
+/*.box_head p{float:left;padding-right: 27%;font-weight: bold;font-size: 20px;}*/
+.box_head i{margin-top: 20px;padding: 5px;}
+.box_head{padding-left: 30px;}
+.box_head td{width:300px;};
+.box_line{opacity: 0.5;width:130%;margin-left:15px;margin-right:10px;}
+.list li{min-height:50px;}
+.list p{font-size: 28px;}
+#tick{margin: 13px 10px 0px 10px;float: left;color:lightgray;}
+.fa-pen{font-size: 16px;}
+.fa-trash{font-size: 16px;}
+}
+
+
+
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 23px;
+  font-family: Tahoma, Verdana, sans-serif;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: red;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}

@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+<div   id="mySidenav3" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav3()">&times;</a>
+  <a href="{%url 'changechartcolor' color='bar'%}"> {%if color == 'bar'%}<mark style="color:green;background-color:transparent;font-size:26px;position:absolute;left:5px;">✓</mark>{%endif%} Bar Chart</a>
+      <a href="{%url 'changechartcolor' color='line'%}">{%if color == 'line'%}<mark style="color:green;background-color:transparent;font-size:26px;position:absolute;left:5px;">✓</mark>{%endif%}Line Chart</a>
+     <a href="{%url 'changechartcolor' color='area'%}">{%if color == 'area'%}<mark style="color:green;background-color:transparent;font-size:26px;position:absolute;left:5px;">✓</mark>{%endif%}Area Chart</a> 
+</div>
 
 <div class="head">
     <h1 style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;"><a style="color:#FFFDFA;text-decoration:None;" href="/">📝Todo List</a></h1>
@@ -7,23 +13,13 @@
     <nav class="top_nav">
       <label for="" class="button" tabindex="1">
         {%if user.is_authenticated%}
-        <span id="box_border" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;background-color:purple;width:35px;height:17px; font-family: Arial, Helvetica, sans-serif;text-align:center;padding-top:50%;padding-bottom:50%;border-radius:100%;">{{user.username|make_list|first|capfirst }}</span>
-
-       {% else %}
-       <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
-       {% endif %}
+                <span onclick="openNav()" id="box_border" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;background-color:purple;width:35px;height:17px; font-family: Arial, Helvetica, sans-serif;text-align:center;padding-top:50%;padding-bottom:50%;border-radius:100%;position:relative;bottom:10px;">{{user.username|make_list|first|capfirst }}</span>
+       
+               {% else %}
+               <span onclick="openNav()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
+               {% endif %}
       </label>
-      <ul class="menu">
-        <li> <a href="/">Task</a></li>
-        <li> <a href="{%url 'recurring' %}">Recurring Task</a></li>
-        {% if user.is_authenticated %}
-        <li> <a href="account/logout">Logout</a> </li>
-        {%else%}
-        <li> <a href="account/login">Login/Signup</a> </li>
-        {% endif %}
-        <li> <a href="{%url 'timer' %}">Timer</a> </li>
-        <li> <a href="{%url 'progress' %}">Progress Bar</a> </li>
-      </ul>
+ 
     </nav>
 
   </div>
@@ -41,13 +37,9 @@
 <td>
  <nav>
    <label for="" class="ellipsis" tabindex="1">
-   <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;" class="fas fa-ellipsis-v fa-1x"></span>
+   <span onclick="openNav3()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;" class="fas fa-ellipsis-v fa-1x"></span>
    </label>
-   <ul class="menu">
-     <li><a href="{%url 'changechartcolor' color='bar'%}"> {%if color == 'bar'%}<mark style="color:green;background-color:transparent;font-size:26px;position:absolute;left:11px;">✓</mark>{%endif%} Bar Chart</a></li>
-     <li> <a href="{%url 'changechartcolor' color='line'%}">{%if color == 'line'%}<mark style="color:green;background-color:transparent;font-size:26px;position:absolute;left:11px;">✓</mark>{%endif%}Line Chart</a> </li>
-     <li> <a href="{%url 'changechartcolor' color='area'%}">{%if color == 'area'%}<mark style="color:green;background-color:transparent;font-size:26px;position:absolute;left:11px;">✓</mark>{%endif%}Area Chart</a> </li>
-   </ul>
+  
  </nav>
 </td>
 </tr>
@@ -255,7 +247,15 @@ var myChart = new Chart(ctx, {
   }
 </script>
 
-
+<script>
+  function openNav3() {
+    document.getElementById("mySidenav3").style.width = "250px";
+  }
+  
+  function closeNav3() {
+    document.getElementById("mySidenav3").style.width = "0";
+  }
+</script>
 
 
 

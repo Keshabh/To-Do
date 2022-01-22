@@ -4,6 +4,7 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Timer</title>
         <meta name="description" content="">
@@ -150,34 +151,127 @@ margin-bottom: 10px;margin-left: -38px;}
 
               input{background-color:mintcream;width:50px;height:40px;font-size:18px;border:1px solid white;border-radius:4px;text-align:center;}
               #set_reset td{padding-left:10px;padding-right:10px;}
-              mark{color:green;background-color:transparent;font-size:26px;position:absolute;left:11px;}
-              #del_aud{width:30px;height:20px;float:right;margin-top:-30px;margin-right:6px;color:red;background-color:transparent;font-size:22px;cursor:context-menu;text-shadow: 0 0 3px lightgrey, 0 0 5px lightgrey;}
+              mark{color:green;background-color:transparent;font-size:26px;position:absolute;left:5px;}
+              #del_aud{width:30px;height:20px;float:right;margin-top:-44px;margin-right:6px;color:red;background-color:transparent;font-size:22px;cursor:context-menu;text-shadow: 0 0 3px lightgrey, 0 0 5px lightgrey;}
               #files{width:95px;height:30px;font-size:14px;}
+
+              
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 23px;
+  font-family: Tahoma, Verdana, sans-serif;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: red;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+@media only screen and (max-width: 500px) {
+  .head{width:130%;height:50px;margin-left:15px;margin-right:10px;}
+  .top_line{opacity: 0.3;width:135%;margin-left:15px;margin-right:10px;}
+  .box{margin-top: 30px;width: 500px;height: 400px;margin-left:15px;margin-right: 10px;}
+  /*.box_head p{float:left;padding-right: 27%;font-weight: bold;font-size: 20px;}*/
+  .box_head i{margin-top: 20px;padding: 5px;}
+  .box_head{padding-left: 30px;}
+  .box_head td{width:300px;};
+  .box_line{opacity: 0.5;width:130%;margin-left:15px;margin-right:10px;}
+  .base-timer{width:400px;height:400px;}
+  .base-timer__label {
+    width: 400px;
+    height: 400px;
+    font-size:70px;
+  }
+  .fa-play,.fa-pause{font-size:40px;}
+  input{width:80px;height:60px;font-size:28px;}
+  #myform td{font-size:24px;}
+  #mg{font-size:28px;font-weight:bold;width:200px;height:80px;}
+  }
         </style>
     </head>
     <body>
+      <div   id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Task</a>
+        <a href="{%url 'recurring' %}">Recurring Task</a>
+        <a href="{%url 'timer' %}">Timer</a>
+        <a href="{%url 'progress' %}">Progress</a>
+        {% if user.is_authenticated %}
+        <a href="account/logout">Logout</a>
+        {%else%}
+        <a href="account/login">Login/Signup</a>
+        {% endif %}
+      </div>
+      
+      <div   id="mySidenav2" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
+          {%for i in Aud_name %}
+          {% if forloop.counter0 is Index%}
+          <a  href="{%url 'changeaudio' forloop.counter0 %}"><mark>✓</mark>{{i}} 
+         {% if forloop.counter0 > 5 %}<a id="del_aud" href="{%url 'delete_audio' forloop.counter0%}">⛔</a>{% endif %}
+         </a>
+          {%else%}
+          <a href="{%url 'changeaudio' forloop.counter0 %}">{{i}}
+           {% if forloop.counter0 > 5 %}<a id="del_aud" href="{%url 'delete_audio' forloop.counter0%}">⛔</a>{% endif %}
+          </a>
+          {% endif %}
+          {% endfor %}
+          
+          
+          <a>
+           <form id="getme" action="{% url 'simple_upload' %}" method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+             <label style="color:green;" for="img" >⬆️Upload</label>
+             <input type="file"  name="myfile"  onchange="form.submit()" id="img" style="display:none"> 
+             
+           </form>
+          </a>
+         
+          
+
+      </div>
+
         <div class="head">
             <h1 style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;"><a style="color:#FFFDFA;text-decoration:None;" href="/">📝Todo List</a></h1>
             <nav class="top_nav">
               <label for="" class="button" tabindex="1">
                 {%if user.is_authenticated%}
-                <span id="box_border" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;background-color:purple;width:35px;height:17px; font-family: Arial, Helvetica, sans-serif;text-align:center;padding-top:50%;padding-bottom:50%;border-radius:100%;">{{user.username|make_list|first|capfirst }}</span>
+                <span onclick="openNav()" id="box_border" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;background-color:purple;width:35px;height:17px; font-family: Arial, Helvetica, sans-serif;text-align:center;padding-top:50%;padding-bottom:50%;border-radius:100%;position:relative;bottom:10px;">{{user.username|make_list|first|capfirst }}</span>
        
                {% else %}
-               <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
+               <span onclick="openNav()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
                {% endif %}
               </label>
-              <ul class="menu">
-                <li> <a href="/">Task</a></li>
-                <li> <a href="{%url 'recurring' %}">Recurring Task</a></li>
-                {% if user.is_authenticated %}
-                <li> <a href="account/logout">Logout</a> </li>
-                {%else%}
-                <li> <a href="account/login">Login/Signup</a> </li>
-                {% endif %}
-                <li> <a href="{%url 'timer' %}">Timer</a> </li>
-                <li> <a href="{%url 'progress' %}">Progress Bar</a> </li>
-              </ul>
+            
             </nav>
        
           </div>
@@ -196,33 +290,9 @@ margin-bottom: 10px;margin-left: -38px;}
         <td>
          <nav>
            <label for="" class="ellipsis" tabindex="1">
-           <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;" class="fas fa-ellipsis-v fa-1x"></span>
+           <span onclick="openNav2()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;" class="fas fa-ellipsis-v fa-1x"></span>
            </label>
-           <ul class="menu">
-             {%for i in Aud_name %}
-             {% if forloop.counter0 is Index%}
-             <li ><a  href="{%url 'changeaudio' forloop.counter0 %}"><mark>✓</mark>{{i}} 
-            {% if forloop.counter0 > 5 %}<a id="del_aud" href="{%url 'delete_audio' forloop.counter0%}">⛔</a>{% endif %}
-            </a></li>
-             {%else%}
-             <li><a href="{%url 'changeaudio' forloop.counter0 %}">{{i}}
-              {% if forloop.counter0 > 5 %}<a id="del_aud" href="{%url 'delete_audio' forloop.counter0%}">⛔</a>{% endif %}
-             </a></li>
-             {% endif %}
-             {% endfor %}
-             
-             
-             <li>
-              <form id="getme" action="{% url 'simple_upload' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <label style="color:green;" for="img" >⬆️Upload</label>
-                <input type="file"  name="myfile"  onchange="form.submit()" id="img" style="display:none"> 
-                
-              </form>
-            
-            
-             </li>
-           </ul>
+           
          </nav>
         </td>
         </tr>
@@ -468,7 +538,24 @@ margin-bottom: 10px;margin-left: -38px;}
     </script>
    
 
-
+ <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+  
+    function openNav2() {
+      document.getElementById("mySidenav2").style.width = "250px";
+    }
+    
+    function closeNav2() {
+      document.getElementById("mySidenav2").style.width = "0";
+    }
+  
+    </script>
     
 </body>
 </html>

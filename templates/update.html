@@ -7,14 +7,14 @@
 
      <nav class="top_nav">
        <label for="" class="button" tabindex="1">
-       <span style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
+        {%if user.is_authenticated%}
+        <span onclick="openNav()" id="box_border" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;background-color:purple;width:35px;height:17px; font-family: Arial, Helvetica, sans-serif;text-align:center;padding-top:50%;padding-bottom:50%;border-radius:100%;position:relative;bottom:10px;">{{user.username|make_list|first|capfirst }}</span>
+
+       {% else %}
+       <span onclick="openNav()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
+       {% endif %}
        </label>
-       <ul class="menu">
-         <li> <a href="#">Home</a></li>
-         <li> <a href="#">Login</a> </li>
-         <li> <a href="#">Register</a> </li>
-         <li> <a href="#">Graph</a> </li>
-       </ul>
+     
      </nav>
 
    </div>
@@ -32,12 +32,9 @@
 <td>
   <nav>
     <label for="" class="ellipsis" tabindex="1">
-    <span style="color:black;" class="fas fa-ellipsis-v fa-1x"></span>
+    <span onclick="openNav2()" style="color:black;" class="fas fa-ellipsis-v fa-1x"></span>
     </label>
-    <ul class="menu">
-      <li><a href="{%url 'delete_all' %}">Clear all tasks</a></li>
-      <li> <a href="{%url 'clear_finished' %}">Clear Finished Task</a> </li>
-    </ul>
+   
   </nav>
 </td>
 </tr>

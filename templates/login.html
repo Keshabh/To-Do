@@ -6,8 +6,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="1094782445905-kp6cksh3663lgmd9uvf20qmt0nujq3qn.apps.googleusercontent.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
+    
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/d59c21f7b9.js" crossorigin="anonymous"></script>
     <link rel = "icon" href = "
@@ -71,7 +74,19 @@
       }
     </style>
   </head>
+  
   <body>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript">
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());
+}
+</script>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <h1 style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;margin-right:30px;"><a style="color:#FFFDFA;text-decoration:None;font-size:30px;" href="/">📝Todo List</a></h1>
     <div class="login_box">
        <h2>Log In</h2>

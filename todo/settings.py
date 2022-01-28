@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'sslserver',
     
+    
   
     
 ]
@@ -62,10 +63,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
-]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -115,6 +113,11 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
 
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
@@ -174,12 +177,13 @@ LOGIN_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'offline',
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': ''
         }
     }
 }

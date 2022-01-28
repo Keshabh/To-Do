@@ -20,7 +20,7 @@ def login(request,backend='django.contrib.auth.backends.ModelBackend'):
             #authenticate the user
             #user=authenticate(username=request.POST['username'])
             #auth.login(request,user)
-            login(request, obj, backend='django.contrib.auth.backends.ModelBackend')
+            auth.login(request, obj, backend='django.contrib.auth.backends.ModelBackend')
             return redirect("index")
 
 

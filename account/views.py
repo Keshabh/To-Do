@@ -13,7 +13,7 @@ def login(request):
         #for google login
         #push the returned data in social accounts
             try:
-                obj = User(request.POST['username'])
+                obj = User(username=request.POST['username'],password=request.POST['pass'])
                 obj.save()
             except:
                 obj = User.objects.filter(username=request.POST['username']).first()

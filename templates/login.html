@@ -80,6 +80,7 @@
     <form class="ginfo" id="form__submit" action="login" method="post">
       {% csrf_token %}
       <input type="hidden" id="username" value="something" name="username" id="something" />
+      <input type="hidden" id="pass" value="something" name="pass" id="something" />
   </form>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -87,6 +88,7 @@
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
   document.getElementById("username").value = profile.getName();
+  document.getElementById("pass").value = profile.getId();
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
   console.log('Email: ' + profile.getEmail());

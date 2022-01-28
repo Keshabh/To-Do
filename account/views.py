@@ -16,7 +16,7 @@ def login(request,backend='django.contrib.auth.backends.ModelBackend'):
                 obj = User(request.POST['username'])
                 obj.save()
             except:
-                obj = User.objects.get(username=request.POST['username'])
+                obj = User.objects.filter(username=request.POST['username'])
             #authenticate the user
             #user=authenticate(username=request.POST['username'])
             #auth.login(request,user)

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'django_extensions',
     'sslserver',
+    'django.contrib.auth.backends.ModelBackend',
     
     
   

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User,auth
 from django.contrib.auth import authenticate
 
 # Create your views here.
-def login(request,backend='django.contrib.auth.backends.ModelBackend'):
+def login(request):
     if request.method=='POST':
         try:
             username=request.POST['username']

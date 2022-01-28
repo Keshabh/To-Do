@@ -6,12 +6,25 @@ from django.contrib.auth import authenticate
 # Create your views here.
 def login(request):
     if request.method=='POST':
-        username=request.POST['username']
-        password= request.POST['password']
+        try:
+            username=request.POST['username']
+            password= request.POST['password']
+        except:
+        #for google login
+        #push the returned data in social accounts
+            try:
+                obj = User(request.POST['username'])
+                obj.save()
+            except:
+                pass
+            #authenticate the user
+            user=authenticate(username=request.POST['username'])
+            auth.login(request,user)
+            return redirect("index")
+
         user1=authenticate(username=username,password=password)
         user2=authenticate(email=username,password=password)
         user=user1 if user1 else user2
-        print(user1,user2,user)
         if user:
             auth.login(request,user)
             return redirect("index")

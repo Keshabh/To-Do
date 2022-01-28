@@ -76,14 +76,22 @@
   </head>
   
   <body>
+
+    <form class="ginfo" id="form__submit" action="login" method="post">
+      <input type="hidden" id="username" value="something" name="username" id="something" />
+  </form>
+
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script type="text/javascript">
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  document.getElementById("username").value = profile.getName();
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
   console.log('Email: ' + profile.getEmail());
+  let form = document.getElementById("form__submit");
+  form.submit();
+  //post this data to the views
 }
 </script>
     <div class="g-signin2" data-onsuccess="onSignIn"></div>

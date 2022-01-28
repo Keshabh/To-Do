@@ -32,7 +32,8 @@ date=date[0]+'- '+ date[2]+' '+date[1]+','+date[4][2:]
 date = str(dates)
 print("Date: ",date)
 '''
-def index(request):    
+def index(request):   
+    #lets try to feed the data in Users table, and autenticate the user.
     h=0
     '''
     if request.method == 'POST':

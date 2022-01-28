@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+#SECRET_KEY = os.environ['SECRET_KEY']
 #for localhost
 #uncomment below line and comment upper one's
-#SECRET_KEY = 'django-insecure-o0+cxng-+_#n!krvfn&!=%gax$p(rgas)-n*x@(51i33*-6cn^'
+SECRET_KEY = 'django-insecure-o0+cxng-+_#n!krvfn&!=%gax$p(rgas)-n*x@(51i33*-6cn^'
 #DEBUG = True
 
 
@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'django_extensions',
     'sslserver',
-    'django.contrib.auth.backends.ModelBackend',
+    
     
     
   

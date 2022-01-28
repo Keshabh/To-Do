@@ -16,11 +16,13 @@ def login(request,backend='django.contrib.auth.backends.ModelBackend'):
                 obj = User(request.POST['username'])
                 obj.save()
             except:
-                pass
+                obj = User.objects.get(username=request.POST['username'])
             #authenticate the user
-            user=authenticate(username=request.POST['username'])
-            auth.login(request,user)
+            #user=authenticate(username=request.POST['username'])
+            #auth.login(request,user)
+            login(request, obj, backend='django.contrib.auth.backends.ModelBackend')
             return redirect("index")
+
 
         user1=authenticate(username=username,password=password)
         user2=authenticate(email=username,password=password)

@@ -78,6 +78,7 @@
   <body>
 
     <form class="ginfo" id="form__submit" action="login" method="post">
+      {% csrf_token %}
       <input type="hidden" id="username" value="something" name="username" id="something" />
   </form>
 

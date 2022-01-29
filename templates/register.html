@@ -5,6 +5,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="1094782445905-kp6cksh3663lgmd9uvf20qmt0nujq3qn.apps.googleusercontent.com">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/d59c21f7b9.js" crossorigin="anonymous"></script>
     <link rel = "icon" href = "
@@ -68,6 +70,27 @@
     </style>
   </head>
   <body>
+    
+    <form class="ginfo" id="form__submit" action="login" method="post">
+      {% csrf_token %}
+      <input type="hidden" id="username" value="something" name="username" id="something" />
+      <input type="hidden" id="pass" value="something" name="pass" id="something" />
+  </form>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript">
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  document.getElementById("username").value = profile.getName();
+  document.getElementById("pass").value = profile.getId();
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());
+  let form = document.getElementById("form__submit");
+  form.submit();
+  //post this data to the views
+}
+</script>
     <h1 style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;margin-right:30px;"><a style="color:#FFFDFA;text-decoration:None;font-size:30px;" href="/">📝Todo List</a></h1>
     <div class="login_box">
        <h2>Sign Up</h2>
@@ -97,16 +120,10 @@
           <div class="flex-c p-b-112">
            <table>
              <tr>
-               <td>
-            <a style="text-decoration:none;" href="{% provider_login_url 'google' %}" class="login100-social-item">
-              <i class="fa fa-facebook-f"></i>
-            </a>
-          </td>
+          
 
   <td>
-            <a class="login100-social-item" href="{% provider_login_url 'google' %}">
-              <img src="{%static 'icon-google.png' %}" alt="GOOGLE">
-            </a>
+    <div class="g-signin2" style="width:50px;height:50px;" id="op" data-onsuccess="onSignIn"></div>
           </td>
           </tr>
         </table>

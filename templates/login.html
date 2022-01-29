@@ -7,8 +7,6 @@
   <head>
     <meta charset="utf-8">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous" />
     <meta name="google-signin-client_id" content="1094782445905-kp6cksh3663lgmd9uvf20qmt0nujq3qn.apps.googleusercontent.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
@@ -79,18 +77,7 @@
   
   <body>
 
-    <div class="col-md-8 mx-auto social-container my-2 order-md-1">
-      <button class="btn btn-danger mb-2">
-          <a href="#">Login with Instagram</a>
-      </button>
-      <button class="btn btn-primary mb-2">
-        <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-    </button>
-      <button class="btn btn-info mb-2">
-          <a href="#">Login with LinkedIn</a>
-      </button>
-  </div>
-</div>
+    
 
     <form class="ginfo" id="form__submit" action="login" method="post">
       {% csrf_token %}
@@ -138,16 +125,11 @@ function onSignIn(googleUser) {
           <div class="flex-c p-b-112">
            <table>
              <tr>
-               <td>
-            <a style="text-decoration: none;" href="{% provider_login_url 'facebook' %}" method="oauth2" class="login100-social-item">
-              <i class="fa fa-facebook-f"></i>
-            </a>
-          </td>
 
   <td>      <!---<a class="login100-social-item" href="{% provider_login_url 'google' %}" process="connect">
               <img src="{%static 'icon-google.png' %}" alt="GOOGLE">
             </a> -->
-            <a class="g-signin2" style="width:40px;height:40px;font-size:40px;" id="op" data-onsuccess="onSignIn">rgre</a>
+            <div class="g-signin2" style="width:50px;height:50px;" id="op" data-onsuccess="onSignIn"></div>
             <!---
               it goes to templatetag ->social account, from there it goes to outh2->provider.py 
              -->

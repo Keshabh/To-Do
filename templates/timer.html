@@ -156,6 +156,9 @@ margin-bottom: 10px;margin-left: -38px;}
               #files{width:95px;height:30px;font-size:14px;}
 
               
+              .home_button{text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;background-color:purple;width:35px;height:17px; font-family: Arial, Helvetica, sans-serif;text-align:center;padding-top:50%;padding-bottom:50%;border-radius:100%;position:relative;bottom:10px;}
+              #home_button2{text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;}
+
 .sidenav {
   height: 100%;
   width: 0;
@@ -211,12 +214,17 @@ margin-bottom: 10px;margin-left: -38px;}
     height: 400px;
     font-size:70px;
   }
+  .home_button{width:45px;height:26px; font-size:30px;font-weight: bold; text-align:center;padding-top:65%;padding-bottom:35%;border-radius:100%;position:relative;bottom:35px;}
+  .todo_link{font-size: 45px;}
+   .title,.time{font-size:28px;}
+   #elip{font-size: 34px;}
+   #home_button2{width:45px;height:26px; font-size:30px;font-weight: bold; text-align:center;padding-top:65%;padding-bottom:35%;border-radius:100%;position:relative;bottom:28px;}
   .fa-play,.fa-pause{font-size:40px;}
   input{width:80px;height:60px;font-size:28px;}
   #myform td{font-size:24px;}
   #mg{font-size:28px;font-weight:bold;width:200px;height:80px;}
   .sidenav a {
-    font-size: 26px;
+    font-size: 32px;
   }
   }
         </style>
@@ -264,14 +272,14 @@ margin-bottom: 10px;margin-left: -38px;}
       </div>
 
         <div class="head">
-            <h1 style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;"><a style="color:#FFFDFA;text-decoration:None;" href="/">📝Todo List</a></h1>
+            <h1 class="todo_link"style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;"><a style="color:#FFFDFA;text-decoration:None;" href="/">📝Todo List</a></h1>
             <nav class="top_nav">
               <label for="" class="button" tabindex="1">
                 {%if user.is_authenticated%}
-                <span onclick="openNav()" id="box_border" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;background-color:purple;width:35px;height:17px; font-family: Arial, Helvetica, sans-serif;text-align:center;padding-top:50%;padding-bottom:50%;border-radius:100%;position:relative;bottom:10px;">{{user.username|make_list|first|capfirst }}</span>
+                <span onclick="openNav()" id="box_border" class="home_button">{{user.username|make_list|first|capfirst }}</span>
        
                {% else %}
-               <span onclick="openNav()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
+               <span onclick="openNav()" id="home_button2" class="fas fa-bars"></span>
                {% endif %}
               </label>
             
@@ -285,15 +293,15 @@ margin-bottom: 10px;margin-left: -38px;}
         <table>
         <tr>
         <td>
-         <p style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;">Timer</p>
+         <p class="title" style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;">Timer</p>
         </td>
         <td style="text-align:center;">
-         <p style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;">{{time}}</p>
+         <p class="time" style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;">{{time}}</p>
         </td>
         <td>
          <nav>
            <label for="" class="ellipsis" tabindex="1">
-           <span onclick="openNav2()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;" class="fas fa-ellipsis-v fa-1x"></span>
+           <span id="elip" onclick="openNav2()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;" class="fas fa-ellipsis-v fa-1x"></span>
            </label>
            
          </nav>

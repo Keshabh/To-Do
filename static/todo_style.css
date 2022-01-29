@@ -14,7 +14,7 @@ nav label{font-size: 22px;font-weight: 200;display: block;cursor: pointer;outlin
 #box_border:hover{opacity: 1;border:1px solid white;}
 .menu:hover{display: block;width:200px;} 
   
-
+.home_button{text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;background-color:purple;width:35px;height:17px; font-family: Arial, Helvetica, sans-serif;text-align:center;padding-top:50%;padding-bottom:50%;border-radius:100%;position:relative;bottom:10px;}
 
 
 
@@ -65,11 +65,11 @@ margin-bottom: 10px;margin-left: -38px;}
 .add_cancel:active{position: relative;top:2px;}
 .jadu{float: right;position:absolute;bottom:0px;right:0px;margin-right: 3px;}
 
+#home_button2{text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;}
 
+.add_something{width:100%; font-weight:bold;font-size:20px;color:#404040; border:none; background: transparent; outline: 0;}
 
-
-
-
+#hak{padding-left:20px;padding-right:20px;width:455px;padding-top:15px;}
 
 
 
@@ -124,12 +124,23 @@ margin-bottom: 10px;margin-left: -38px;}
   .box_head{padding-left: 30px;}
   .box_head td{width:300px;};
   .box_line{opacity: 0.5;width:130%;margin-left:15px;margin-right:10px;}
+  
+  #add_task{min-height: 60px;font-size: 18px;padding-top: 10px;}
+  .home_button{width:45px;height:26px; font-size:30px;font-weight: bold; text-align:center;padding-top:65%;padding-bottom:35%;border-radius:100%;position:relative;bottom:35px;}
+  .todo_link{font-size: 45px;}
+   .title,.time{font-size:28px;}
+   #elip{font-size: 34px;}
+   #home_button2{width:45px;height:26px; font-size:30px;font-weight: bold; text-align:center;padding-top:65%;padding-bottom:35%;border-radius:100%;position:relative;bottom:28px;}
+   #hak{padding-left:20px;padding-right:20px;width:455px;height:110px;color:blue;padding-top:15px;}
+   .add_something{width:100%; font-weight:bold;font-size:32px;color:#404040; border:none; background: transparent; outline: 0;}
+   .add_cancel {font-size: 22px;}
+
   .list li{min-height:50px;}
   .list p{font-size: 28px;}
-  #tick{margin: 13px 10px 0px 10px;float: left;color:lightgray;}
-  .fa-pen{font-size: 16px;}
-  .fa-trash{font-size: 16px;}
+  #tick{font-size:44px;margin: 13px 10px 0px 10px;float: left;color:lightgray;}
+  .fa-pen{font-size: 24px;}
+  .fa-trash{font-size: 24px;}
   .sidenav a {
-    font-size: 26px;
+    font-size: 32px;
   }
   }

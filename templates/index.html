@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
+<div   id="mySidenav2" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
+  <a href="{%url 'delete_all' %}">Clear All Tasks</a>
+  <a href="{%url 'clear_finished' %}">Clear Finished Tasks</a> 
+</div>
 
 
    <div class="head">
-     <h1 style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;"><a style="color:#FFFDFA;text-decoration:None;" href="/">📝Todo List</a></h1>
+     <h1 class="todo_link" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;"><a style="color:#FFFDFA;text-decoration:None;" href="/">📝Todo List</a></h1>
      <nav class="top_nav">
        <label for="" class="button" tabindex="1">
          {%if user.is_authenticated%}
-         <span onclick="openNav()" id="box_border" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;background-color:purple;width:35px;height:17px; font-family: Arial, Helvetica, sans-serif;text-align:center;padding-top:50%;padding-bottom:50%;border-radius:100%;position:relative;bottom:10px;">{{user.username|make_list|first|capfirst }}</span>
+         <span onclick="openNav()" id="box_border" class="home_button">{{user.username|make_list|first|capfirst }}</span>
 
         {% else %}
-        <span onclick="openNav()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;" class="fas fa-bars"></span>
+        <span onclick="openNav()"  id="home_button2" class="fas fa-bars"></span>
         {% endif %}
        </label>
        
@@ -23,15 +28,15 @@
 <table>
 <tr>
 <td>
-  <p style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;">Tasks</p>
+  <p class="title" style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;">Tasks</p>
 </td>
 <td style="text-align:center;">
-  <p style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;">{{time}}</p>
+  <p class="time" style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;">{{time}}</p>
 </td>
 <td>
   <nav>
     <label for="" class="ellipsis" tabindex="1">
-    <span onclick="openNav2()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;padding-left:10px;" class="fas fa-ellipsis-v fa-1x"></span>
+    <span id="elip" onclick="openNav2()" style="text-shadow: 0 0 3px #FF0000, 0 0 5px gray;color:black;padding-left:10px;" class="fas fa-ellipsis-v fa-1x"></span>
     </label>
     
   </nav>
@@ -46,8 +51,8 @@
 <form action="" method="POST">
 {% csrf_token %}
 <!--{{form.as_p}}-->
-<li class="hak" style="padding-left:20px;padding-right:20px;width:455px;padding-top:15px;">
-<input autocomplete="off" autofocus id="myText" placeholder="Go on, add something... " type="text" name="tasks" style="width:100%; font-weight:bold;font-size:20px;color:#404040; border:none; background: transparent; outline: 0;"/>
+<li id="hak">
+<input autocomplete="off" autofocus id="myText" placeholder="Go on, add something... " type="text" name="tasks" class="add_something"/>
 <br><br>
 <input name="userid" style="visibility:hidden;" value={{user.id}} />
 <button  class="add_cancel"  type="submit">ADD</button>

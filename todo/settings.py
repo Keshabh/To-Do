@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'django_extensions',
     'sslserver',
-    
+    'social_django', # add this
+    'django.core'
     
     
   
@@ -116,6 +117,7 @@ DATABASES = {
 }
 
 AUTHENTICATION_BACKENDS = [
+    'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
@@ -124,6 +126,8 @@ import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
+SOCIAL_AUTH_FACEBOOK_KEY = '617585335962678'       # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '31d3503dc409eb9031b5faa7e4a96b24'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -172,10 +176,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SITE_ID = 1
+SITE_ID = 2
 
 LOGIN_REDIRECT_URL = '/'
 
+'''
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # For each OAuth based provider, either add a ``SocialApp``
@@ -188,7 +193,7 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
+'''
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',

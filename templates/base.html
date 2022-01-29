@@ -14,18 +14,21 @@
     <link rel = "icon" href = "
         https://iconarchive.com/download/i99584/blackvariant/button-ui-requests-5/ToDo-List.ico" 
         type = "image/x-icon">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
         
-        //paste this code under the head tag or in a separate js file.
-          // Wait for window load
-          $(window).load(function() {
-            // Animate loader off screen
-            $(".se-pre-con").fadeOut("slow");;
-          });  
+       
   </head>
+
+  
+  <div class="loader-wrapper">
+    <span class="loader"><span class="loader-inner"></span></span>
+  </div>
+  <script>
+      $(window).on("load",function(){
+        $(".loader-wrapper").fadeOut("slow");
+      });
+  </script>
+
   <body>
-    <div class="se-pre-con"></div>
     <div   id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <a href="/">Task</a>
@@ -39,7 +42,6 @@
       {% endif %}
     </div>
     
- 
   {% block content%}
 
   

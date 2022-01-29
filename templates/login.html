@@ -54,6 +54,8 @@
         -ms-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.1);
       }
       
+      
+      
       .login100-social-item img {
         width: 26px;
       }
@@ -76,7 +78,14 @@
   </head>
   
   <body>
-
+    <div class="loader-wrapper">
+      <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <script>
+        $(window).on("load",function(){
+          $(".loader-wrapper").fadeOut("slow");
+        });
+    </script>
     
 
     <form class="ginfo" id="form__submit" action="login" method="post">

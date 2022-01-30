@@ -58,6 +58,7 @@
 <input autocomplete="off" autofocus id="myText" placeholder="Go on, add something... " type="text" name="tasks" class="add_something"/>
 <br><br>
 <input name="userid" style="visibility:hidden;" value={{user.id}} />
+<div id="speak" class="Rec" ><i class="fas fa-microphone"></i></div>
 <button  class="add_cancel"  type="submit">ADD</button>
 <a href="{%url 'recurring'%}" class="add_cancel">CANCEL</a>
 </li>
@@ -104,4 +105,24 @@
 </ul>
 </div>
 
+<script>
+  var speak = document.getElementById('speak');
+  var textarea = document.getElementById('myText');
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var recognition = new SpeechRecognition();
+  speak.addEventListener('click', function () {
+      recognition.start();
+      textarea.placeholder = 'Listening...';
+  })
+  recognition.onresult = function (e) {
+      var transcript = e.results[0][0].transcript;
+      textarea.value = transcript;
+  }
+
+</script>
+<script>
+  jQuery('.Rec').click(function(){
+    jQuery(this).toggleClass('active');
+ });
+</script>
 {% endblock %}
